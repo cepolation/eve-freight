@@ -1,0 +1,3 @@
+Flask=0.12.2
+EsiPy=0.1.7
+flask-mysql=1.4.0
