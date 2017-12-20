@@ -9,3 +9,19 @@ canvas {
     height: 100%;
     z-index: -1;
 }
+
+.title_container {
+    padding: 15% 0% 15% 0%;
+}
+
+#header {
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 64px;
+}
+
+#branding {
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+}

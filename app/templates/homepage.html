@@ -1,15 +1,20 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/static/css/homepage.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.1.0/gl-matrix.js"></script>
 </head>
 
-
 <body>
-<canvas id="canvas"></canvas>
-<br>
-<button class="btn btn-outline btn-info-outline text-center">View Contracts</button>
-<hr>
-<button class="btn btn-outline-secondary text-center">Admin</button>
-<script src="/static/js/homepage.js"></script>
+  <canvas id="canvas"></canvas>
+  <br>
+  <h1 id="header" class="text-center">EVE Freight</h1>
+  <h3 id="branding" class="text-center">by Krypted Gaming</h3>
+  <div class="title_container text-center">
+    <button onclick="location.href='/contracts/'"class="w-25 btn btn-outline-info text-center">View Contracts</button>
+    <br>
+    <br>
+    <button onclick="location.href='/admin/'" class="w-25 btn btn-outline-secondary text-center">Admin</button>
+  </div>
+  <script src="/static/js/homepage.js"></script>
 </body>
