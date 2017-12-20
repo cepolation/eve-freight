@@ -1,16 +1,11 @@
 from flask import Flask
-# from flask_login import LoginManager
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
+from app.admin.views import admin
+from app.main.views import main
 
 app = Flask(__name__)
-# app.config.from_object('config')
-# db = SQLAlchemy(app)
-
-# lm = LoginManager()
-# lm.init_app(app)
-# lm.login_view = 'showSignIn'
-
-# bootstrap = Bootstrap(app)
-
-from app import views, models
+app.register_blueprint(main, url_prefix='/')
+app.register_blueprint(admin, url_prefix='/admin')
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:password@localhost/dev'
+app.config['ADMIN_KEY'] = '123'
+db = SQLAlchemy(app)
