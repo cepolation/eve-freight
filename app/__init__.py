@@ -1,18 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.admin.views import admin
 from app.main.views import main
+from app.eve.views import *
 
 app = Flask(__name__)
 app.register_blueprint(main, url_prefix='/')
-app.register_blueprint(admin, url_prefix='/admin')
+app.register_blueprint(eve, url_prefix='/esi')
 ## CONFIG
 app.config['SQL_USER'] = "root"
 app.config['SQL_PASSWORD'] = "password"
 app.config['ESI_CLIENT_ID'] = "d9e042c7462046018b867637ba6fe1cd"
 app.config['ESI_SECRET_KEY'] = "fEL01TRwKRZKGsW48bnpNm3TInKcK7o5hmjsW7vS"
-app.config['ESI_SCOPES'] = "esi-contracts.read_corporation_contracts.v1"
-app.config['ESI_CALLBACK_URL'] = "http://localhost:5000/esi/callback"
+app.config['ESI_CALLBACK_URL'] = "http://159.203.85.204:5000/esi/callback"
 
 ## ESI
 from esipy import App as esiapp
@@ -25,13 +24,13 @@ esi_client = EsiClient(
         )
 esi_security = EsiSecurity(
         app=esi_app,
-        redirect_uri='https://localhost/esi/callback',
+        redirect_uri=app.config['ESI_CALLBACK_URL'],
         client_id=app.config['ESI_CLIENT_ID'],
         secret_key=app.config['ESI_SECRET_KEY'],
         )
 client=EsiClient(security=esi_security)
-app.config['AUTH_URL'] = esi_security.get_auth_uri(
-        scopes=app.config['ESI_SCOPES'],
+app.config['ESI_REDIRECT_URL'] = esi_security.get_auth_uri(
+        scopes=['esi-contracts.read_corporation_contracts.v1'],
         state="None"
         )
 
