@@ -1,6 +1,5 @@
 from flask import render_template, Blueprint, redirect, request
 from flask import current_app as app
-from app.utils.list import *
 eve = Blueprint('eve', __name__)
 
 @eve.route('/')
