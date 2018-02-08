@@ -14,6 +14,13 @@ def callback():
     esi_response = app.config['esi_security'].auth(code)
     user = app.config['esi_security'].verify()
     app.config['user'] = user
+
+    esi_app = app.config['esi_app']
+    op = esi_app.op['get_characters_character_id'](
+        character_id=user['CharacterID']
+    )
+    data = app.config['esi_client'].request(op)
+    app.config['CORPORATION_ID'] = data.data['corporation_id']
     print(app.config['user'])
     print(user)
     return redirect('/')
