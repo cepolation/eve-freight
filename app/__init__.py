@@ -18,18 +18,18 @@ app.config['CORPORATION_ID'] = 98538579
 from esipy import App as esiapp
 from esipy import EsiClient, EsiSecurity
 esi_app = esiapp.create(url="https://esi.tech.ccp.is/latest/swagger.json?datasource=tranquility")
-esi_client = EsiClient(
-        retry_requests=True,
-        header={'User-Agent': 'Something CCP can use to contact you and that define your app'},
-        raw_body_only=False,
-        )
 esi_security = EsiSecurity(
         app=esi_app,
         redirect_uri=app.config['ESI_CALLBACK_URL'],
         client_id=app.config['ESI_CLIENT_ID'],
         secret_key=app.config['ESI_SECRET_KEY'],
         )
-client=EsiClient(security=esi_security)
+esi_client = EsiClient(
+        retry_requests=True,
+        header={'User-Agent': 'Something CCP can use to contact you and that define your app'},
+        raw_body_only=False,
+        security=esi_security
+        )
 app.config['ESI_REDIRECT_URL'] = esi_security.get_auth_uri(
         scopes=['esi-contracts.read_corporation_contracts.v1'],
         state="None"

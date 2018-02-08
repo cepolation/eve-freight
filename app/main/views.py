@@ -9,7 +9,9 @@ def index():
 @main.route('contracts/')
 def contracts():
     esi_app = app.config['esi_app']
-    op = esi_app.op['get_corporations_corporation_id_contracts'](corporation_id=app.config['CORPORATION_ID'])
+    op = esi_app.op['get_corporations_corporation_id_contracts'](
+        corporation_id=app.config['CORPORATION_ID']
+    )
     contracts = app.config['esi_client'].request(op)
     print(contracts)
     print(contracts.data)
