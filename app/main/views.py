@@ -18,6 +18,10 @@ def contracts():
     for contract in contracts.data:
         if app.config['CORPORATION_ID'] != contract['assignee_id']:
             continue
+        if contract['status'] != 'outstanding':
+            continue
+        if contract['type'] != 'courier':
+            continue
 
         op = esi_app.op['get_characters_character_id'](
             character_id=contract['issuer_id']
@@ -26,7 +30,7 @@ def contracts():
         iss_time = contract['date_issued']
         exp_time = contract['date_expired']
         volume = str(contract['volume']) + " m3"
-        show_data.append((issuer, iss_time, exp_time, volume))
+        show_data.append((issuer, iss_time, exp_time, volume, contract['type'], contract['status']))
 
     op = esi_app.op['get_corporations_corporation_id'](
         corporation_id=app.config['CORPORATION_ID']
