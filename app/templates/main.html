@@ -7,14 +7,31 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        var data = {{ data }}
-        var corp = {{ corp }}
-    </script>
+  <script>
+      var data = {{ data }}
+      var corp = {{ corp }}
+  </script>
 </head>
 <body>
 
 <div class="container">
+  <h2>Information</h2>
+  <p>Our jump freighters will usually run once a week, or if the cargohold is 100%.</p>
+
+  <h2>Reward Calculator</h2>
+  <form>
+  Enter contract size (m3): <input type="text" id="firstNumber" /><br>
+  Enter desired collateral (in millions): <input type="text" id="secondNumber" /><br>
+  <input type="button" onClick="calculateReward()" Value="Calculate" />
+  </form>
+  <h4>Reward</h4><input type="text" id="rewardHolder" disabled><span id = "result"></span></input>
+
+
+
+  <h2>Cargohold</h2>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: {{progress}}%;" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+  </div>
   <h2>Contracts issued to {{corp}}</h2>
   <table class="table table-striped">
     <thead>
@@ -39,6 +56,13 @@
     </tbody>
   </table>
 </div>
-
+<script>
+function calculateReward()
+{
+        num1 = document.getElementById("firstNumber").value;
+        num2 = document.getElementById("secondNumber").value;
+        document.getElementById("rewardHolder").innerHTML = (num1*600) + (num2*10000);
+}
+</script>
 </body>
 </html>
