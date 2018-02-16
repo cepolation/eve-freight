@@ -14,7 +14,8 @@ def contracts():
     )
     contracts = app.config['esi_client'].request(op)
 
-    show_data = []
+    context = {'contracts': []}
+    tot_volume = 0
     for contract in contracts.data:
         if app.config['CORPORATION_ID'] != contract['assignee_id']:
             continue
@@ -30,12 +31,15 @@ def contracts():
         iss_time = contract['date_issued']
         exp_time = contract['date_expired']
         volume = str(contract['volume']) + " m3"
-        show_data.append((issuer, iss_time, exp_time, volume, contract['type'], contract['status']))
+        tot_volume += float(contract['volume'])
+        context['contracts'].append((issuer, iss_time, exp_time, volume, contract['type'], contract['status']))
+
+    context['progress'] = str(round(tot_volume / 3400, 2))
 
     op = esi_app.op['get_corporations_corporation_id'](
         corporation_id=app.config['CORPORATION_ID']
     )
-    corp = app.config['esi_client'].request(op).data['name']
+    context['corp'] = app.config['esi_client'].request(op).data['name']
     print(contracts)
     print(contracts.data)
-    return render_template('main.html', data=show_data, corp=corp)
+    return render_template('main.html', **context)
